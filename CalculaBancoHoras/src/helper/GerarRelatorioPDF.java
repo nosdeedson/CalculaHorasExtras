@@ -22,6 +22,7 @@ public class GerarRelatorioPDF {
 	public static void gerarRelatorioMesPDF( List<Viagem> listaViagemMes, String motorista, String mes) {
 		
 		Document doc = new Document();
+		System.out.println(listaViagemMes.size());
 		String arquivoPDF = "relatorio_" +"motorista.pdf";
 		try {
 			PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));

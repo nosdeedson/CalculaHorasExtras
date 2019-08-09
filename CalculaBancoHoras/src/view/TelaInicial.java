@@ -55,6 +55,7 @@ public class TelaInicial extends JFrame {
 	private Viagem viagem[] = new Viagem[8];
 
 	private int paraWhile = -1;
+	private int iniciaWhile = -1;
 	private double horasTrabalhadasSemana;
 	private double horasTrabalhadasMes;
 
@@ -75,9 +76,7 @@ public class TelaInicial extends JFrame {
 	private JTextField txtHorasBancoMes;
 
 	private JLabel lbldiasSemana[] = new JLabel[7];
-
-	private boolean limpaViagemLonga = false;
-	// private boolean domingo = true;
+	private boolean domingoDigitado = true;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -98,6 +97,7 @@ public class TelaInicial extends JFrame {
 	public TelaInicial() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(10, 200, 1300, 400);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -303,16 +303,15 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				saidaGain(0);
-				/*
-				txtDiasSemanaSaida[0].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaSaida[0].setText("");
-				mudaEnfaseRDBTNParaVemelho(0);
-				paraWhile = 0;*/
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
+				if(txtDiasSemanaSaida[0].getText().equals("")) {
+					mudaRDBTNParaPreto(0);
+					mudaEnfaseParaCinza(0);
+				}
 				viagem[0].setSaida(Helper.trataString(txtDiasSemanaSaida[0].getText()));
 			}
 		});
@@ -321,52 +320,11 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {// resolver aqui
 				chegadaGain(0);
-				/*txtDiasSemanaChegada[0].setBackground(new Color(250, 250, 250));
-				if (txtDiasSemanaSaida[6].getText().equals("")) {// aqui sabado sem digitar
-					if (txtDiasSemanaSaida[0].getText().equals("")) {
-						txtDiasSemanaSaida[0].setText("meia noite");
-						txtDiasSemanaChegada[0].setBackground(new Color(250, 250, 250));
-						viagem[0].setSaida(0);
-					}
-				} else if (!txtDiasSemanaSaida[6].getText().equals("") && txtDiasSemanaSaida[0].getText().equals("")) {// aqui																								// digitar
-					txtDiasSemanaSaida[0].setText("meia noite");
-					txtDiasSemanaChegada[0].setBackground(new Color(250, 250, 250));
-					viagem[7].setSaida(0);
-				} else if (!txtDiasSemanaSaida[0].getText().equals("") && !txtDiasSemanaSaida[6].getText().equals("")) {// aqui																									// domingo
-					txtDiasSemanaSaida[0].setText("meia noite");
-					txtDiasSemanaChegada[0].setBackground(new Color(250, 250, 250));
-					viagem[7].setSaida(0);
-					txtDiasSemanaChegada[0].setText("");
-				}*/
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				chegadaLost(0);
-				//txtDiasSemanaSaida[1].requestFocus();
-				/*if (txtDiasSemanaSaida[6].getText().equals("")
-						|| txtDiasSemanaSaida[0].getText().equals("meia noite") && viagem[0].getChegada() == 0) {
-
-					criaViagem(0);
-					if (txtDiasSemanaSaida[0].getText().equals("meia noite")) {
-						int i = 6;
-						while (txtDiasSemanaChegada[i].getText().equals("") && i >= paraWhile) {
-							criaViagem(i);
-							if (i == 6) {
-								limpatxtViagemMaisDeUmDia(0, lbldiasSemana[0], lbldiasSemana[6]);
-							}
-							i--;
-						}
-						paraWhile = -1;
-					}
-				} else if (!txtDiasSemanaSaida[6].getText().equals("") 
-						&& !txtDiasSemanaSaida[0].getText().equals("")) {
-					criaViagem(7);
-				}
-				
-				if (limpaViagemLonga == false)
-					mudaEnfaseCamposParaVerde(0);
-				limpaViagemLonga = false;*/
 			}
 		});
 
@@ -376,10 +334,6 @@ public class TelaInicial extends JFrame {
 			public void focusGained(FocusEvent e) {
 				// TODO Auto-generated method stub
 				saidaGain(1);
-				/*txtDiasSemanaSaida[1].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaSaida[1].setText("");
-				mudaEnfaseRDBTNParaVemelho(1);
-				paraWhile = 1;*/
 			}
 
 			@Override
@@ -391,32 +345,11 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				chegadaGain(1);
-				/*txtDiasSemanaChegada[1].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaChegada[1].setText("");
-				if (txtDiasSemanaSaida[1].getText().equals("")) {
-					txtDiasSemanaSaida[1].setText("meia noite");
-					viagem[1].setSaida(0);
-				}*/
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				chegadaLost(1);
-				/*criaViagem(1);
-				if (txtDiasSemanaSaida[1].getText().equals("meia noite")) {
-					int i = 0;
-					while (txtDiasSemanaChegada[i].getText().equals("") && i >= paraWhile) {
-						criaViagem(i);
-						if (i == 0) {
-							limpatxtViagemMaisDeUmDia(1, lbldiasSemana[1], lbldiasSemana[0]);
-						}
-						i--;
-					}
-					paraWhile = -1;
-				}
-				if (limpaViagemLonga == false)
-					mudaEnfaseCamposParaVerde(1);
-				limpaViagemLonga = false;*/
 			}// fim metodo 2
 		}); // fim addlistener
 		// funções terça
@@ -425,10 +358,6 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				saidaGain(2);
-				/*txtDiasSemanaSaida[2].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaSaida[2].setText("");
-				mudaEnfaseRDBTNParaVemelho(2);
-				paraWhile = 2;*/
 			}
 
 			@Override
@@ -440,33 +369,12 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				chegadaGain(2);
-				/*txtDiasSemanaChegada[2].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaChegada[2].setText("");
-				if (txtDiasSemanaSaida[2].getText().equals("")) {
-					txtDiasSemanaSaida[2].setText("meia noite");
-					viagem[2].setSaida(0);
-				}*/
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
 				chegadaLost(2);
-				/*criaViagem(2);
-				if (txtDiasSemanaSaida[2].getText().equals("meia noite")) {
-					int i = 1;
-					while (txtDiasSemanaChegada[i].getText().equals("") && i >= paraWhile) {
-						criaViagem(i);
-						if (i == 1) {
-							limpatxtViagemMaisDeUmDia(2, lbldiasSemana[2], lbldiasSemana[1]);
-						}
-						i--;
-					}
-					paraWhile = -1;
-				}
-				if (limpaViagemLonga == false)
-					mudaEnfaseCamposParaVerde(2);
-				limpaViagemLonga = false;*/
 			}// fim segundo metodo
 
 		});
@@ -476,10 +384,6 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				saidaGain(3);
-				/*txtDiasSemanaSaida[3].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaSaida[3].setText("");
-				mudaEnfaseRDBTNParaVemelho(3);
-				paraWhile = 3;*/
 			}
 
 			@Override
@@ -492,33 +396,12 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				chegadaGain(3);
-				/*txtDiasSemanaChegada[3].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaChegada[3].setText("");
-				if (txtDiasSemanaSaida[3].getText().equals("")) {
-					txtDiasSemanaSaida[3].setText("meia noite");
-					viagem[3].setSaida(0);
-				}*/
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
 				chegadaLost(3);
-				/*criaViagem(3);
-				if (txtDiasSemanaSaida[3].getText().equals("meia noite")) {
-					int i = 2;
-					while (txtDiasSemanaChegada[i].getText().equals("") && i >= paraWhile) {
-						criaViagem(i);
-						if (i == 2) {
-							limpatxtViagemMaisDeUmDia(3, lbldiasSemana[3], lbldiasSemana[2]);
-						}
-						i--;
-					}
-					paraWhile = -1;
-				}
-				if (limpaViagemLonga == false)
-					mudaEnfaseCamposParaVerde(3);
-				limpaViagemLonga = false;*/
 			}
 		});
 		// funções quinta
@@ -527,10 +410,6 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				saidaGain(4);
-				/*txtDiasSemanaSaida[4].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaSaida[4].setText("");
-				mudaEnfaseRDBTNParaVemelho(4);
-				paraWhile = 4;*/
 			}
 
 			@Override
@@ -542,33 +421,12 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				chegadaGain(4);
-				/*txtDiasSemanaChegada[4].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaChegada[4].setText("");
-				if (txtDiasSemanaSaida[4].getText().equals("")) {
-					txtDiasSemanaSaida[4].setText("meia noite");
-					viagem[4].setSaida(0);
-				}*/
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
 				chegadaLost(4);
-				/*criaViagem(4);
-				if (txtDiasSemanaSaida[4].getText().equals("meia noite")) {
-					int i = 3;
-					while (txtDiasSemanaChegada[i].getText().equals("") && i >= paraWhile) {
-						criaViagem(i);
-						if (i == 3) {
-							limpatxtViagemMaisDeUmDia(4, lbldiasSemana[4], lbldiasSemana[3]);
-						}
-						i--;
-					}
-					paraWhile = -1;
-				}
-				if (limpaViagemLonga == false)
-					mudaEnfaseCamposParaVerde(4);
-				limpaViagemLonga = false;*/
 			}
 		});
 		// funçoes sexta
@@ -577,10 +435,6 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				saidaGain(5);
-				/*txtDiasSemanaSaida[5].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaSaida[5].setText("");
-				mudaEnfaseRDBTNParaVemelho(5);
-				paraWhile = 5;*/
 			}
 
 			@Override
@@ -593,33 +447,12 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				chegadaGain(5);
-				/*txtDiasSemanaChegada[5].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaChegada[5].setText("");
-				if (txtDiasSemanaSaida[5].getText().equals("")) {
-					txtDiasSemanaSaida[5].setText("meia noite");
-					viagem[5].setSaida(0);
-				}*/
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
 				chegadaLost(5);
-				/*criaViagem(5);
-				if (txtDiasSemanaSaida[5].getText().equals("meia noite")) {
-					int i = 4;
-					while (txtDiasSemanaChegada[i].getText().equals("") && i >= paraWhile) {
-						criaViagem(i);
-						if (i == 4) {
-							limpatxtViagemMaisDeUmDia(5, lbldiasSemana[5], lbldiasSemana[4]);
-						}
-						i--;
-					}
-					paraWhile = -1;
-				}
-				if (limpaViagemLonga == false)
-					mudaEnfaseCamposParaVerde(5);
-				limpaViagemLonga = false;*/
 			}
 		});
 		// funções sabado
@@ -628,10 +461,6 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				saidaGain(6);
-				/*txtDiasSemanaSaida[6].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaSaida[6].setText("");
-				mudaEnfaseRDBTNParaVemelho(6);
-				paraWhile = 6;*/
 			}
 
 			@Override
@@ -644,34 +473,12 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 				chegadaGain(6);
-				/*txtDiasSemanaChegada[6].setBackground(new Color(250, 250, 250));
-				txtDiasSemanaChegada[6].setText("");
-				if (txtDiasSemanaSaida[6].getText().equals("")) {
-					txtDiasSemanaSaida[6].setText("meia noite");
-					viagem[6].setSaida(0);
-				}*/
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
-				//chegadaLost(6);
-				criaViagem(6);
-				if (txtDiasSemanaSaida[6].getText().equals("meia noite")) {
-					// System.out.println("sabado!!!!");
-					int i = 5;
-					while (txtDiasSemanaChegada[i].getText().equals("") && i >= paraWhile) {
-						criaViagem(i);
-						if (i == 5) {
-							limpatxtViagemMaisDeUmDia(6, lbldiasSemana[6], lbldiasSemana[5]);
-						}
-						i--;
-					}
-					paraWhile = -1;
-				}
-				if (limpaViagemLonga == false)
-					mudaEnfaseCamposParaVerde(6);
-				limpaViagemLonga = false;
+				chegadaLost(6);
 			}
 
 		});
@@ -703,13 +510,11 @@ public class TelaInicial extends JFrame {
 		}
 		// funcao
 		btnNovaSemana.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
-				preencheListaPDF();
 
-				if (txtDiasSemanaSaida[6].getText().equals("")) {
-					mudaEnfaseCamposParaVerde(6);
-				}
-				for (int i = 0; i < viagem.length; i++) {
+				preencheListaPDF();
+				for (int i = 0; i < viagem.length -1; i++) {
 					resetaViagem(i);
 					diasSemanaRadioButton[i].clearSelection();
 					viagemGrupo[i].clearSelection();
@@ -731,10 +536,7 @@ public class TelaInicial extends JFrame {
 				// TODO Auto-generated method stub
 				super.mousePressed(e);
 				preencheListaPDF();
-				if (txtDiasSemanaSaida[6].getText().equals("")) {
-					mudaEnfaseCamposParaVerde(6);
-				}
-				for (int i = 0; i < viagem.length; i++) {
+				for (int i = 0; i < 6; i++) {
 					resetaViagem(i);
 					txtDiasSemanaChegada[i].setBackground(new Color(128, 128, 128));
 					txtDiasSemanaSaida[i].setBackground(new Color(128, 128, 128));
@@ -762,7 +564,7 @@ public class TelaInicial extends JFrame {
 				// TODO Auto-generated method stub
 				super.mousePressed(e);
 				preencheListaPDF();
-				for (int i = 0; i < viagem.length; i++) {
+				for (int i = 0; i < viagem.length -1; i++) {
 					resetaViagem(i);
 				}
 				setHorasTrabalharSemana(getHorasTrabalharSemana(), false);
@@ -786,41 +588,100 @@ public class TelaInicial extends JFrame {
 	}
 
 	// funções
+	public void chegadaGain(int indice) {
+		if( indice == 0 && !txtDiasSemanaChegada[0].getText().equals("")) {
+			//System.out.println(" here sunday filled");
+			txtDiasSemanaSaida[0].setText("0");
+			viagem[7].setSaida(0);
+			txtDiasSemanaChegada[0].setText("");
+			iniciaWhile = indice;
+		}
+		else
+		{
+			txtDiasSemanaChegada[indice].setBackground(new Color(250, 250, 250));
+			txtDiasSemanaChegada[indice].setText("");
+			if (txtDiasSemanaSaida[indice].getText().equals("")) {
+				txtDiasSemanaSaida[indice].setText("meia noite");
+				viagem[indice].setSaida(0);
+			}
+			iniciaWhile = indice;
+		}
+	}
+
+	public void chegadaLost(int indice) {
+		if (iniciaWhile == paraWhile) {
+			criaViagem(indice);
+			if (indice != 6)
+				txtDiasSemanaSaida[indice + 1].requestFocus();
+		} else {
+			if (iniciaWhile > paraWhile) {
+				criaViagem(iniciaWhile);
+				while (iniciaWhile >= paraWhile) {
+					iniciaWhile--;
+					criaViagem(iniciaWhile);
+					if (iniciaWhile == paraWhile) {
+						limpatxtViagemMaisDeUmDia(indice, lbldiasSemana[indice], lbldiasSemana[indice - 1]);
+					}
+				} // fim while
+			}
+			else {// iniciaWhile menor parawhile e viagem longa mais de um dia
+				if (txtDiasSemanaSaida[0].getText().equals("meia noite")) {
+					System.out.println("here empty");
+					txtDiasSemanaSaida[0].setText("meia noite");
+					criaViagem(iniciaWhile);
+					double aux = viagem[iniciaWhile].getHoraTrabalhadaDia();
+					limpatxtViagemMaisDeUmDia(indice, lbldiasSemana[indice], lbldiasSemana[6]);
+					iniciaWhile = 6;
+					while(iniciaWhile >= paraWhile) {
+						criaViagem(iniciaWhile);
+						if(iniciaWhile == 6) {
+							viagem[6].setHoraTrabalhadaDia(viagem[6].getHoraTrabalhadaDia() + aux);
+							txtDiasSemanaTotal[6].setText(Double.toString(viagem[6].getHoraTrabalhadaDia()));
+						}
+						iniciaWhile--;
+					}
+				}
+				else {
+					System.out.println("here not empty");
+					criaViagem(7);
+				}
+			}
+			paraWhile = -1;
+		}
+
+	}// fim metodo lost
+
 	public void criaViagem(int indice) {
-		
+
 		if (indice == 7) {
-			System.out.println(" here, here");
-			
-			 viagem[indice].setChegada(Double.parseDouble(txtDiasSemanaChegada[0].getText()));
-			 double horas = (viagem[indice].getSaida() + viagem[indice].getChegada() )* 2;
-			 int i = 6;
-			 while( i >= paraWhile) {
-				 criaViagem(i);
-				 if( i == 6) {
-					 viagem[6].setHoraBancoDia(viagem[6].getHoraBancoDia() + horas);
-					 viagem[6].setHoraTrabalhadaDia(viagem[6].getHoraTrabalhadaDia() + horas);
-					 viagem[6].setDecrementaBanco(viagem[6].getDecrementaBanco() + horas);
-					 viagem[6].setDecrementaHorasSemana(viagem[6].getDecrementaHorasSemana() + horas);
-					 setHorasBancoSemana(horas, true);
-					 setHorasBancoMes(horas, true);
-					 setHorasTrabalhadasSemana(horas, true);
-					 setHorasTrabalhadasMes(horas, true);
-					 
-					 txtDiasSemanaTotal[6].setText( Double.toString(viagem[6].getHoraTrabalhadaDia()));
-					 txtHorasTrabalhadasSemana.setText(Double.toString(getHorasBancoSemana()));
-					 txtHorasTrabalhadasMes.setText(Double.toString(getHorasTrabalhadasMes()));
-					 txtBancoHorasSemana.setText(Double.toString(getHorasBancoSemana()));
-					 txtHorasBancoMes.setText( Double.toString(getHorasBancoMes()));
-					 txtDiasSemanaSaida[0].setText( Double.toString(viagem[6].getSaida()));
-					 txtDiasSemanaChegada[0].setText(Double.toString(viagem[6].getChegada()));
-					 JOptionPane.showMessageDialog(null, "As horas de domingo foram adinonadas as horas de sábado");
-					 txtDiasSemanaSaida[0].setText(Double.toString(viagem[0].getSaida()));
-					 txtDiasSemanaChegada[0].setText(Double.toString(viagem[0].getChegada()));
-				 }
-				 System.out.println(viagem[indice].getSaida());
-				 System.out.println(viagem[indice].getChegada());
-				 System.out.println(horas);
-			 }
+			viagem[indice].setChegada(Double.parseDouble(txtDiasSemanaChegada[0].getText()));
+			double horas = (viagem[indice].getSaida() + viagem[indice].getChegada()) * 2;
+			int i = 6;
+			while (i >= paraWhile) {
+				criaViagem(i);
+				if (i == 6) {
+					viagem[6].setHoraBancoDia(viagem[6].getHoraBancoDia() + horas);
+					viagem[6].setHoraTrabalhadaDia(viagem[6].getHoraTrabalhadaDia() + horas);
+					viagem[6].setDecrementaBanco(viagem[6].getDecrementaBanco() + horas);
+					viagem[6].setDecrementaHorasSemana(viagem[6].getDecrementaHorasSemana() + horas);
+					setHorasBancoSemana(horas, true);
+					setHorasBancoMes(horas, true);
+					setHorasTrabalhadasSemana(horas, true);
+					setHorasTrabalhadasMes(horas, true);
+
+					txtDiasSemanaTotal[6].setText(Double.toString(viagem[6].getHoraTrabalhadaDia()));
+					txtHorasTrabalhadasSemana.setText(Double.toString(getHorasBancoSemana()));
+					txtHorasTrabalhadasMes.setText(Double.toString(getHorasTrabalhadasMes()));
+					txtBancoHorasSemana.setText(Double.toString(getHorasBancoSemana()));
+					txtHorasBancoMes.setText(Double.toString(getHorasBancoMes()));
+					txtDiasSemanaSaida[0].setText(Double.toString(viagem[6].getSaida()));
+					txtDiasSemanaChegada[0].setText(Double.toString(viagem[6].getChegada()));
+					JOptionPane.showMessageDialog(null, "As horas de domingo foram adinonadas as horas de sábado");
+					txtDiasSemanaSaida[0].setText(Double.toString(viagem[0].getSaida()));
+					txtDiasSemanaChegada[0].setText(Double.toString(viagem[0].getChegada()));
+				}
+				i--;
+			}
 
 		} else {
 			verificaFeriadoViagem(indice);
@@ -834,6 +695,8 @@ public class TelaInicial extends JFrame {
 			txtDiasSemanaTotal[indice].setText(Double.toString(viagem[indice].getHoraTrabalhadaDia()));
 			escreveVariaveisNaoViagem(indice);
 			escreveTXT(indice);
+			mudaRDBTNParaPreto(indice);
+			mudaEnfaseParaCinza(indice);
 		}
 	}
 
@@ -894,27 +757,15 @@ public class TelaInicial extends JFrame {
 		resetaViagem(indice);
 		JOptionPane.showMessageDialog(null, " As HORAS EXTRAS de " + diaAtual.getText() + " foram adicionado(s) as "
 				+ "horas de " + diaAnterior.getText());
-		limpaViagemLonga = true;
 		mudaEnfaseParaCinza(indice);
 	}
 
 	public void mudaEnfaseParaCinza(int indice) {
 		txtDiasSemanaChegada[indice].setBackground(new Color(128, 128, 128));
-		txtDiasSemanaSaida[indice].requestFocus();
-	}
-
-	public void mudaEnfaseCamposParaVerde(int indice) {
-
-		if (indice != 6)
-			txtDiasSemanaSaida[indice + 1].requestFocus();
-		//txtDiasSemanaChegada[indice].setBackground(new Color(0, 204, 0));
-		//txtDiasSemanaSaida[indice].setBackground(new Color(0, 204, 0));
-		mudaRDBTNParaPreto(indice);
+		txtDiasSemanaSaida[indice].setBackground(new Color(128, 128, 128));
 	}
 
 	public void mudaRDBTNParaPreto(int indice) {
-		if (indice != 6)
-			txtDiasSemanaSaida[indice + 1].requestFocus();
 		lbldiasSemana[indice].setForeground(new Color(0, 0, 0));
 		rdbtnFeriado[indice].setForeground(new Color(0, 0, 0));
 		rdbtnFeriadoMunicipal[indice].setForeground(new Color(0, 0, 0));
@@ -930,7 +781,7 @@ public class TelaInicial extends JFrame {
 
 	public void preencheListaPDF() {
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < viagem.length - 1; i++) {
 			Viagem v = new Viagem();
 			v.setChegada(viagem[i].getChegada());
 			v.setDecrementaBanco(viagem[i].getDecrementaBanco());
@@ -945,7 +796,6 @@ public class TelaInicial extends JFrame {
 			v.setHoraDiaPosterior(viagem[i].getHoraDiaPosterior());
 			listaViagensPDF.add(v);
 		}
-
 	}
 
 	public void resetaViagem(int indice) {
@@ -963,6 +813,13 @@ public class TelaInicial extends JFrame {
 		txtDiasSemanaSaida[indice].setText("");
 		txtDiasSemanaChegada[indice].setText("");
 		txtDiasSemanaTotal[indice].setText("");
+	}
+
+	public void saidaGain(int indice) {
+		txtDiasSemanaSaida[indice].setBackground(new Color(250, 250, 250));
+		txtDiasSemanaSaida[indice].setText("");
+		mudaEnfaseRDBTNParaVemelho(indice);
+		paraWhile = indice;
 	}
 
 	private void setaDiaSemana(int indice) {
@@ -983,57 +840,7 @@ public class TelaInicial extends JFrame {
 		if (indice == 7)
 			lbldiasSemana[indice].setText("Domingo");
 	}
-	public void saidaGain(int indice) {
-		txtDiasSemanaSaida[indice].setBackground(new Color(250, 250, 250));
-		txtDiasSemanaSaida[indice].setText("");
-		mudaEnfaseRDBTNParaVemelho(indice);
-		paraWhile = 0;
-	}
-	public void chegadaGain(int indice) {
-		txtDiasSemanaChegada[indice].setBackground(new Color(250, 250, 250));
-		if (txtDiasSemanaSaida[6].getText().equals("")) {// aqui sabado sem digitar
-			if (txtDiasSemanaSaida[indice].getText().equals("")) {
-				txtDiasSemanaSaida[indice].setText("meia noite");
-				txtDiasSemanaChegada[indice].setBackground(new Color(250, 250, 250));
-				viagem[0].setSaida(indice);
-			}
-		} else if (!txtDiasSemanaSaida[6].getText().equals("") && txtDiasSemanaSaida[indice].getText().equals("")) {// aqui																								// digitar
-			txtDiasSemanaSaida[indice].setText("meia noite");
-			txtDiasSemanaChegada[indice].setBackground(new Color(250, 250, 250));
-			viagem[7].setSaida(indice);
-		} else if (!txtDiasSemanaSaida[indice].getText().equals("") && !txtDiasSemanaSaida[6].getText().equals("")) {// aqui																									// domingo
-			txtDiasSemanaSaida[indice].setText("meia noite");
-			txtDiasSemanaChegada[0].setBackground(new Color(250, 250, 250));
-			viagem[7].setSaida(0);
-			txtDiasSemanaChegada[indice].setText("");
-		}
-	}
-	public void chegadaLost(int indice) {
-		if (txtDiasSemanaSaida[6].getText().equals("")
-				|| txtDiasSemanaSaida[0].getText().equals("meia noite") && viagem[indice].getChegada() == 0) {
 
-			criaViagem(indice);
-			if (txtDiasSemanaSaida[indice].getText().equals("meia noite")) {
-				int i = 6;
-				while (txtDiasSemanaChegada[i].getText().equals("") && i >= paraWhile) {
-					criaViagem(i);
-					if (i == 6) {
-						limpatxtViagemMaisDeUmDia(indice, lbldiasSemana[indice], lbldiasSemana[indice]);
-					}
-					i--;
-				}
-				paraWhile = -1;
-			}
-		} else if (!txtDiasSemanaSaida[6].getText().equals("") 
-				&& !txtDiasSemanaSaida[indice].getText().equals("")) {
-			criaViagem(7);
-		}
-		
-		/*if (limpaViagemLonga == false)
-			mudaEnfaseCamposParaVerde(indice);
-		limpaViagemLonga = false;*/
-		txtDiasSemanaSaida[indice + 1].requestFocus();
-	}
 	public void verificaFeriadoViagem(int indice) {
 		if (rdbtnFeriado[indice].isSelected() == true) {
 			viagem[indice].setFeriado(true);
@@ -1119,11 +926,4 @@ public class TelaInicial extends JFrame {
 			this.horasTrabalharMes -= horasTrabalharMes;
 	}
 
-	public boolean isLimpaViagemLonga() {
-		return limpaViagemLonga;
-	}
-
-	public void setLimpaViagemLonga(boolean limpaViagemLonga) {
-		this.limpaViagemLonga = limpaViagemLonga;
-	}
 }// fim classe
