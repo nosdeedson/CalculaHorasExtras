@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -39,42 +40,46 @@ public class GerarRelatorioPDF {
 			doc.add(p);
 			
 			PdfPTable table = new PdfPTable(7);
-			PdfPCell cell = new PdfPCell( new Phrase("Dia Semana"));
-			PdfPCell cell1 = new PdfPCell( new Phrase("Saída"));
-			PdfPCell cell2= new PdfPCell( new Phrase("Chegada"));
-			PdfPCell cell3 = new PdfPCell( new Phrase("Trabalhar"));
-			PdfPCell cell4 = new PdfPCell( new Phrase("Trabalhada"));
-			PdfPCell cell5 = new PdfPCell( new Phrase("Horas Banco"));
-			PdfPCell cell6 = new PdfPCell( new Phrase("Horas dia posterior") );
-			
-			table.addCell(cell);
-			table.addCell(cell1);
-			table.addCell(cell2);
-			table.addCell(cell3);
-			table.addCell(cell4);
-			table.addCell(cell5);
-			table.addCell(cell6);
+			PdfPCell cell[] = new PdfPCell[7];
+			cell[0] = new PdfPCell(new Phrase("Dia Semana"));
+			cell[1] = new PdfPCell( new Phrase("Saída"));
+			cell[2]= new PdfPCell( new Phrase("Chegada"));
+			cell[3] = new PdfPCell( new Phrase("Trabalhar"));
+			cell[4] = new PdfPCell( new Phrase("Trabalhada"));
+			cell[5] = new PdfPCell( new Phrase("Horas Banco"));
+			cell[6] = new PdfPCell( new Phrase("Horas dia posterior") );
+		
+			for( int i = 0; i< cell.length ; i++) {
+				table.addCell(cell[i]);
+			}
 			
 			double totalBanco = 0.0;
 			double totalTrabalhado = 0.0;
 			double totalTrabalhar = 0.0;
+			int totalFolgas = 0;
 			int cont = 0;
 			for( int i = 0; i < listaViagemMes.size(); i++) {
-				cell = new PdfPCell( new Phrase(setDiaSemana(cont) ));
-				cell1 = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getSaida()) ));
-				cell2 = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getChegada()) ));
-				cell3 = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraTrabalharDia())));
-				cell4 = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraTrabalhadaDia()) ));
-				cell5 = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraBancoDia())));
-				cell6 = new PdfPCell( new Phrase( Double.toString(listaViagemMes.get(i).getHoraDiaPosterior() )));
+				BaseColor backgroundColor= new BaseColor(220,220,220);
 				
-				table.addCell(cell);
-				table.addCell(cell1);
-				table.addCell(cell2);
-				table.addCell(cell3);
-				table.addCell(cell4);
-				table.addCell(cell5);
-				table.addCell(cell6);
+				cell[0] = new PdfPCell( new Phrase(setDiaSemana(cont) ));
+				cell[1] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getSaida()) ));
+				cell[2] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getChegada()) ));
+				cell[3] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraTrabalharDia())));
+				if( listaViagemMes.get(i).getHoraTrabalhadaDia() > 0)
+					cell[4] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraTrabalhadaDia()) ));
+				else {
+					cell[4] = new PdfPCell(new Phrase("Folga"));
+					totalFolgas ++;
+				}
+				cell[5] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraBancoDia())));
+				cell[6] = new PdfPCell( new Phrase( Double.toString(listaViagemMes.get(i).getHoraDiaPosterior() )));
+				if( i % 2 == 0) {
+					for( int l = 0; l < cell.length; l++)
+						cell[l].setBackgroundColor(backgroundColor);
+				}
+				for( int j = 0; j< cell.length ; j++) {
+					table.addCell(cell[j]);
+				}
 				totalBanco += listaViagemMes.get(i).getHoraBancoDia();
 				totalTrabalhar += listaViagemMes.get(i).getHoraTrabalharDia();
 				totalTrabalhado += listaViagemMes.get(i).getHoraTrabalhadaDia();
@@ -85,22 +90,27 @@ public class GerarRelatorioPDF {
 			}
 			doc.add(table);
 			table = new PdfPTable(7);
-			
-			cell = new PdfPCell( new Phrase(""));
-			cell1 = new PdfPCell( new Phrase(""));
-			cell2 = new PdfPCell( new Phrase("Total"));
-			cell3 = new PdfPCell( new Phrase(Double.toString(totalTrabalhar)));
-			cell4 = new PdfPCell( new Phrase(Double.toString(totalTrabalhado)));
-			cell5 = new PdfPCell( new Phrase(Double.toString(totalBanco)));
-			cell6 = new PdfPCell( new Phrase(""));
-			table.addCell(cell);
-			table.addCell(cell1);
-			table.addCell(cell2);
-			table.addCell(cell3);
-			table.addCell(cell4);
-			table.addCell(cell5);
-			table.addCell(cell6);
+			cell[0] = new PdfPCell( new Phrase(""));
+			cell[1]= new PdfPCell( new Phrase(""));
+			cell[2]= new PdfPCell( new Phrase("Total"));
+			cell[3] = new PdfPCell( new Phrase(Double.toString(totalTrabalhar)));
+			cell[4] = new PdfPCell( new Phrase(Double.toString(totalTrabalhado)));
+			cell[5]= new PdfPCell( new Phrase(Double.toString(totalBanco)));
+			cell[6] = new PdfPCell( new Phrase(""));
+			for( int k = 0; k< cell.length ; k++) {
+				table.addCell(cell[k]);
+			}
 			doc.add(table);
+			p = new Paragraph(" ");
+			doc.add(p);
+			p = new Paragraph(" ");
+			doc.add(p);
+			p = new Paragraph(" Total de folgas tiradas: " + totalFolgas);
+			p.setAlignment(1);
+			doc.add(p);
+			p = new Paragraph(" Total de dias a tirar: " + totalTrabalhado /8);
+			p.setAlignment(1);
+			doc.add(p);
 			doc.close();
 			try {
 				Desktop.getDesktop().open(new File(arquivoPDF));

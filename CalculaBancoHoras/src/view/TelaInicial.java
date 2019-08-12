@@ -308,11 +308,7 @@ public class TelaInicial extends JFrame {
 			@Override
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
-				if(txtDiasSemanaSaida[0].getText().equals("")) {
-					mudaRDBTNParaPreto(0);
-					mudaEnfaseParaCinza(0);
-				}
-				viagem[0].setSaida(Helper.trataString(txtDiasSemanaSaida[0].getText()));
+				saidaLost(0);
 			}
 		});
 
@@ -338,7 +334,7 @@ public class TelaInicial extends JFrame {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				viagem[1].setSaida(Helper.trataString(txtDiasSemanaSaida[1].getText()));
+				saidaLost(1);
 			}
 		});
 		txtDiasSemanaChegada[1].addFocusListener(new FocusListener() {
@@ -362,7 +358,7 @@ public class TelaInicial extends JFrame {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				viagem[2].setSaida(Helper.trataString(txtDiasSemanaSaida[2].getText()));
+				saidaLost(2);
 			}
 		});
 		txtDiasSemanaChegada[2].addFocusListener(new FocusListener() {
@@ -388,7 +384,7 @@ public class TelaInicial extends JFrame {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				viagem[3].setSaida(Helper.trataString(txtDiasSemanaSaida[3].getText()));
+				saidaLost(3);
 			}
 		});
 		txtDiasSemanaChegada[3].addFocusListener(new FocusListener() {
@@ -414,8 +410,7 @@ public class TelaInicial extends JFrame {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				viagem[4].setSaida(Helper.trataString(txtDiasSemanaSaida[4].getText()));
-			}
+				saidaLost(4);			}
 		});
 		txtDiasSemanaChegada[4].addFocusListener(new FocusListener() {
 			@Override
@@ -439,8 +434,7 @@ public class TelaInicial extends JFrame {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				viagem[5].setSaida(Helper.trataString(txtDiasSemanaSaida[5].getText()));
-			}
+				saidaLost(5);			}
 		});
 		txtDiasSemanaChegada[5].addFocusListener(new FocusListener() {
 
@@ -465,8 +459,7 @@ public class TelaInicial extends JFrame {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				viagem[6].setSaida(Helper.trataString(txtDiasSemanaSaida[6].getText()));
-			}
+				saidaLost(7);			}
 		});
 		txtDiasSemanaChegada[6].addFocusListener(new FocusListener() {
 
@@ -520,6 +513,7 @@ public class TelaInicial extends JFrame {
 					viagemGrupo[i].clearSelection();
 					txtDiasSemanaChegada[i].setBackground(new Color(128, 128, 128));
 					txtDiasSemanaSaida[i].setBackground(new Color(128, 128, 128));
+					mudaRDBTNParaPreto(i);
 				}
 				setHorasTrabalharSemana(getHorasTrabalharSemana(), false);
 				setHorasTrabalhadasSemana(getHorasTrabalhadasSemana(), false);
@@ -528,6 +522,7 @@ public class TelaInicial extends JFrame {
 				txtHorasTrabalhadasSemana.setText(Double.toString(getHorasTrabalhadasSemana()));
 				txtBancoHorasSemana.setText(Double.toString(getHorasBancoSemana()));
 				txtDiasSemanaSaida[0].requestFocus();
+				
 			}
 		});
 		btnNovoMes.addMouseListener(new MouseAdapter() {
@@ -821,7 +816,13 @@ public class TelaInicial extends JFrame {
 		mudaEnfaseRDBTNParaVemelho(indice);
 		paraWhile = indice;
 	}
-
+	public void saidaLost( int indice) {
+		if(txtDiasSemanaSaida[indice].getText().equals("")) {
+			mudaRDBTNParaPreto(indice);
+			mudaEnfaseParaCinza(indice);
+		}
+		viagem[0].setSaida(Helper.trataString(txtDiasSemanaSaida[0].getText()));
+	}
 	private void setaDiaSemana(int indice) {
 		if (indice == 0)
 			lbldiasSemana[indice].setText("Domingo");
