@@ -102,10 +102,18 @@ public class TelaInicial extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		// motorista = JOptionPane.showInputDialog(null, " Digite o nome do motorista.
-		// ");
-		// mes = JOptionPane.showInputDialog(null, " Entre com o mês a ser digitado. ");
-
+		while(true) {
+			motorista = JOptionPane.showInputDialog(null, " Digite o nome do motorista. ");
+			mes = JOptionPane.showInputDialog(null, " Entre com o mês a ser digitado. ");
+			if(motorista.equals("")  )
+				motorista = JOptionPane.showInputDialog(null, "Digite o nome do motorista. ");
+			else if( mes.equals("") )
+				mes = JOptionPane.showInputDialog(null, " Digite o mês. ");	
+			if(!motorista.equals("") && !mes.equals("")) {
+				break;
+			}
+		}
+		
 		JLabel lblDigiteHoraEntrada = new JLabel("Selecione quando necess\u00E1rio");
 		lblDigiteHoraEntrada.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDigiteHoraEntrada.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
@@ -459,7 +467,7 @@ public class TelaInicial extends JFrame {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				saidaLost(7);			}
+				saidaLost(6);			}
 		});
 		txtDiasSemanaChegada[6].addFocusListener(new FocusListener() {
 
@@ -514,6 +522,7 @@ public class TelaInicial extends JFrame {
 					txtDiasSemanaChegada[i].setBackground(new Color(128, 128, 128));
 					txtDiasSemanaSaida[i].setBackground(new Color(128, 128, 128));
 					mudaRDBTNParaPreto(i);
+					diasSemanaRadioButton[i].clearSelection();
 				}
 				setHorasTrabalharSemana(getHorasTrabalharSemana(), false);
 				setHorasTrabalhadasSemana(getHorasTrabalhadasSemana(), false);
@@ -521,8 +530,7 @@ public class TelaInicial extends JFrame {
 				txtHorasTrabalharSemana.setText(Double.toString(getHorasTrabalharSemana()));
 				txtHorasTrabalhadasSemana.setText(Double.toString(getHorasTrabalhadasSemana()));
 				txtBancoHorasSemana.setText(Double.toString(getHorasBancoSemana()));
-				txtDiasSemanaSaida[0].requestFocus();
-				
+				//txtDiasSemanaSaida[0].requestFocus();	
 			}
 		});
 		btnNovoMes.addMouseListener(new MouseAdapter() {
@@ -531,10 +539,12 @@ public class TelaInicial extends JFrame {
 				// TODO Auto-generated method stub
 				super.mousePressed(e);
 				preencheListaPDF();
-				for (int i = 0; i < 6; i++) {
+				for (int i = 0; i < viagem.length -1; i++) {
 					resetaViagem(i);
 					txtDiasSemanaChegada[i].setBackground(new Color(128, 128, 128));
 					txtDiasSemanaSaida[i].setBackground(new Color(128, 128, 128));
+					viagemGrupo[i].clearSelection();
+					diasSemanaRadioButton[i].clearSelection();
 				}
 				setHorasTrabalharSemana(getHorasTrabalharSemana(), false);
 				setHorasTrabalharMes(getHorasTrabalharMes(), false);
@@ -548,9 +558,10 @@ public class TelaInicial extends JFrame {
 				txtHorasTrabalhadasSemana.setText("");
 				txtHorasTrabalharMes.setText("");
 				txtHorasTrabalharSemana.setText("");
-				txtDiasSemanaSaida[0].requestFocus();
+				//txtDiasSemanaSaida[0].requestFocus();
 				GerarRelatorioPDF.gerarRelatorioMesPDF(listaViagensPDF, motorista, mes);
 				listaViagensPDF = new ArrayList<Viagem>();
+				
 			}
 		});
 		btnNovoMotorista.addMouseListener(new MouseAdapter() {
@@ -561,6 +572,8 @@ public class TelaInicial extends JFrame {
 				preencheListaPDF();
 				for (int i = 0; i < viagem.length -1; i++) {
 					resetaViagem(i);
+					viagemGrupo[i].clearSelection();
+					diasSemanaRadioButton[i].clearSelection();
 				}
 				setHorasTrabalharSemana(getHorasTrabalharSemana(), false);
 				setHorasTrabalharMes(getHorasTrabalharMes(), false);
@@ -584,6 +597,7 @@ public class TelaInicial extends JFrame {
 
 	// funções
 	public void chegadaGain(int indice) {
+	
 		if( indice == 0 && !txtDiasSemanaChegada[0].getText().equals("")) {
 			//System.out.println(" here sunday filled");
 			txtDiasSemanaSaida[0].setText("0");
@@ -611,7 +625,7 @@ public class TelaInicial extends JFrame {
 		} else {
 			if (iniciaWhile > paraWhile) {
 				criaViagem(iniciaWhile);
-				while (iniciaWhile >= paraWhile) {
+				while (iniciaWhile > paraWhile) {
 					iniciaWhile--;
 					criaViagem(iniciaWhile);
 					if (iniciaWhile == paraWhile) {
@@ -621,13 +635,13 @@ public class TelaInicial extends JFrame {
 			}
 			else {// iniciaWhile menor parawhile e viagem longa mais de um dia
 				if (txtDiasSemanaSaida[0].getText().equals("meia noite")) {
-					System.out.println("here empty");
+					//System.out.println("here empty");
 					txtDiasSemanaSaida[0].setText("meia noite");
 					criaViagem(iniciaWhile);
 					double aux = viagem[iniciaWhile].getHoraTrabalhadaDia();
 					limpatxtViagemMaisDeUmDia(indice, lbldiasSemana[indice], lbldiasSemana[6]);
 					iniciaWhile = 6;
-					while(iniciaWhile >= paraWhile) {
+					while(iniciaWhile > paraWhile) {
 						criaViagem(iniciaWhile);
 						if(iniciaWhile == 6) {
 							viagem[6].setHoraTrabalhadaDia(viagem[6].getHoraTrabalhadaDia() + aux);
@@ -637,7 +651,7 @@ public class TelaInicial extends JFrame {
 					}
 				}
 				else {
-					System.out.println("here not empty");
+					//System.out.println("here not empty");
 					criaViagem(7);
 				}
 			}
@@ -649,7 +663,11 @@ public class TelaInicial extends JFrame {
 	public void criaViagem(int indice) {
 
 		if (indice == 7) {
-			viagem[indice].setChegada(Double.parseDouble(txtDiasSemanaChegada[0].getText()));
+			String c = txtDiasSemanaChegada[0].getText();
+			if(c.equals("0") || c.equals("00"))
+				viagem[indice].setChegada(24);
+			else
+				viagem[indice].setChegada(Double.parseDouble(txtDiasSemanaChegada[0].getText()));
 			double horas = (viagem[indice].getSaida() + viagem[indice].getChegada()) * 2;
 			int i = 6;
 			while (i >= paraWhile) {
@@ -680,7 +698,8 @@ public class TelaInicial extends JFrame {
 
 		} else {
 			verificaFeriadoViagem(indice);
-			if (txtDiasSemanaChegada[indice].getText().equals("")) {
+			if (txtDiasSemanaChegada[indice].getText().equals("") || 
+					txtDiasSemanaChegada[indice].getText().equals("0") || txtDiasSemanaChegada[indice].getText().equals("00") ) {
 				viagem[indice].setChegada(24);
 				txtDiasSemanaChegada[indice].setText("meia noite");
 			} else
@@ -734,7 +753,6 @@ public class TelaInicial extends JFrame {
 					viagem[indice].getHoraTrabalhadaDia() + viagem[indice - 1].getHoraTrabalhadaDia());
 			txtDiasSemanaTotal[indice - 1].setText(Double.toString(viagem[indice - 1].getHoraTrabalhadaDia()));
 			viagem[indice - 1].setHoraDiaPosterior(viagem[indice].getHoraTrabalhadaDia());
-
 		} else {
 			viagem[6].setHoraBancoDia(viagem[indice].getHoraBancoDia() + viagem[6].getHoraBancoDia());
 			viagem[6].setDecrementaBanco(viagem[6].getHoraBancoDia());
@@ -743,7 +761,6 @@ public class TelaInicial extends JFrame {
 			viagem[6].setHoraTrabalhadaDia(viagem[indice].getHoraTrabalhadaDia() + viagem[6].getHoraTrabalhadaDia());
 			txtDiasSemanaTotal[6].setText(Double.toString(viagem[6].getHoraTrabalhadaDia()));
 			viagem[5].setHoraDiaPosterior(viagem[6].getHoraTrabalhadaDia());
-
 		}
 		txtHorasTrabalharSemana.setText(Double.toString(getHorasTrabalharSemana()));
 		txtHorasTrabalharMes.setText(Double.toString(getHorasTrabalharMes()));
@@ -821,7 +838,7 @@ public class TelaInicial extends JFrame {
 			mudaRDBTNParaPreto(indice);
 			mudaEnfaseParaCinza(indice);
 		}
-		viagem[0].setSaida(Helper.trataString(txtDiasSemanaSaida[0].getText()));
+		viagem[indice].setSaida(Helper.trataString(txtDiasSemanaSaida[indice].getText()));
 	}
 	private void setaDiaSemana(int indice) {
 		if (indice == 0)

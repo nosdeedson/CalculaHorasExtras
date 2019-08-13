@@ -8,14 +8,11 @@ public class CalculaViagem {
 	public static Viagem calculaviagem( Viagem viagem, int indice, JTextField txtSaida) {
 		
 		if(indice == 0 || indice == 6 || indice == 7) {
-			double saida = viagem.getSaida();
-			double chegada = viagem.getChegada();
-			boolean flag = viagem.isViagemLonga();
 			double hora = -1;
 			if( indice == 0 || indice == 7)
-				hora = SomaHoras.somaHoraDomingo(saida, chegada, flag);
+				hora = SomaHoras.somaHoraDomingo(viagem);
 			else
-				hora = SomaHoras.somaHoraSabado(saida, chegada, flag);
+				hora = SomaHoras.somaHoraSabado(viagem);
 	
 			viagem.setHoraTrabalhadaDia(hora);
 			viagem.setHoraTrabalharDia(0);
@@ -24,16 +21,13 @@ public class CalculaViagem {
 			viagem.setDecrementaHorasSemana(hora);
 		}
 		else {
-			double saida = viagem.getSaida();
-			double chegada = viagem.getChegada();
-			boolean flag = viagem.isViagemLonga();
 			double hora;
 			if( viagem.isFeriado() == true)
-				hora = SomaHoras.somaHoraDomingo(saida, chegada, flag);
+				hora = SomaHoras.somaHoraDomingo(viagem);
 			else if( viagem.isFeriadoMunicipal() == true)
-				hora = SomaHoras.somaHoraSabado(saida, chegada, flag);
+				hora = SomaHoras.somaHoraSabado(viagem);
 			else
-				hora = SomaHoras.somaHoraDiaSemana(saida, chegada, flag);
+				hora = SomaHoras.somaHoraDiaSemana(viagem);
 			viagem.setHoraTrabalhadaDia(hora);
 			
 			if(txtSaida.getText().equals("meia noite") || viagem.isFeriadoMunicipal()== true || 
