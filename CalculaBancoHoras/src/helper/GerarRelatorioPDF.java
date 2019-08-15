@@ -63,6 +63,7 @@ public class GerarRelatorioPDF {
 			int totalFolgas = 0;
 			int cont = 0;
 			for( int i = 0; i < listaViagemMes.size(); i++) {
+				
 				BaseColor backgroundColor= new BaseColor(220,220,220);
 				
 				cell[0] = new PdfPCell( new Phrase(setDiaSemana(cont) ));
@@ -81,10 +82,12 @@ public class GerarRelatorioPDF {
 				}
 				cell[5] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraBancoDia())));
 				cell[6] = new PdfPCell( new Phrase( Double.toString(listaViagemMes.get(i).getHoraDiaPosterior() )));
-				if( listaViagemMes.get(i).isFeriadoMunicipal() && (cont != 0 || cont != 6) )
+				if( listaViagemMes.get(i).isFeriadoMunicipal()== true && (cont != 0 || cont != 6) ) {
 					cell[7] = new PdfPCell( new Phrase("Municipal"));
-				else if( listaViagemMes.get(i).isFeriado() && (cont != 0 || cont != 6) )
+				}
+				else if( listaViagemMes.get(i).isFeriado() == true && (cont != 0 || cont != 6) ) {
 					cell[7] = new PdfPCell( new Phrase("Nacional"));
+				}
 				else
 					cell[7] = new PdfPCell( new Phrase("Normal"));
 				if( i % 2 == 0) {

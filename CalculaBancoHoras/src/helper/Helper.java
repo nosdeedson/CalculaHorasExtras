@@ -26,12 +26,9 @@ public abstract class Helper {
 		return retorno;
 	}
 	
-	public static JTextField preencheValoresVazios( JTextField chegada) {
-		
-		JTextField aux = new JTextField();
-	
-		return aux;
+	public static void preencheValoresVazios( JTextField chegada) {
+		chegada.setText("aqui");
+		//return aux;
 	}
-	
 
 }

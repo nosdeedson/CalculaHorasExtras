@@ -5,7 +5,7 @@ public class Viagem {
 	private double horaBancoDia, horaTrabalharDia, horaTrabalhadaDia,
 	decrementaBanco, decrementaHorasSemana; // atribuir valor na controller
 	
-	private boolean viagemLonga, feriado, feriadoMunicipal; // atribuir valor na view  
+	private boolean viagemLonga = false, feriado = false, feriadoMunicipal= false; // atribuir valor na view  
 
 	public Viagem(double saida, double chegada, double horaDiaPosterior, double horaBancoDia, double horaTrabalharDia,
 			double horaTrabalhadaDia, double decrementaBanco, double decrementaHorasSemana, boolean viagemLonga,

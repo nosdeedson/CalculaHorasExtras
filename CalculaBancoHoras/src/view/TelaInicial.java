@@ -23,6 +23,9 @@ import javax.swing.SwingConstants;
 import java.awt.GridLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -38,7 +41,7 @@ public class TelaInicial extends JFrame {
 
 	private JPanel contentPane;
 
-	protected JTextField txtDiasSemanaSaida[] = new JTextField[7];
+	public JTextField txtDiasSemanaSaida[] = new JTextField[7];
 	protected JTextField txtDiasSemanaChegada[] = new JTextField[7];
 	protected JTextField txtDiasSemanaTotal[] = new JTextField[7];
 	private JTextField txtHorasTrabalhadasSemana;
@@ -331,7 +334,26 @@ public class TelaInicial extends JFrame {
 				chegadaLost(0);
 			}
 		});
-
+		txtDiasSemanaSaida[0].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaChegada[0].requestFocus();
+				}
+			}
+		});
+		txtDiasSemanaChegada[0].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaSaida[1].requestFocus();
+				}
+			}
+		});
 		// segunda funções
 		txtDiasSemanaSaida[1].addFocusListener(new FocusListener() {
 			@Override
@@ -356,6 +378,26 @@ public class TelaInicial extends JFrame {
 				chegadaLost(1);
 			}// fim metodo 2
 		}); // fim addlistener
+		txtDiasSemanaSaida[1].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaChegada[1].requestFocus();
+				}
+			}
+		});
+		txtDiasSemanaChegada[1].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaSaida[2].requestFocus();
+				}
+			}
+		});
 		// funções terça
 		txtDiasSemanaSaida[2].addFocusListener(new FocusListener() {
 
@@ -381,6 +423,26 @@ public class TelaInicial extends JFrame {
 				chegadaLost(2);
 			}// fim segundo metodo
 
+		});
+		txtDiasSemanaSaida[2].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaChegada[2].requestFocus();
+				}
+			}
+		});
+		txtDiasSemanaChegada[2].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaSaida[3].requestFocus();
+				}
+			}
 		});
 		// funções quarta
 		txtDiasSemanaSaida[3].addFocusListener(new FocusListener() {
@@ -408,6 +470,26 @@ public class TelaInicial extends JFrame {
 				chegadaLost(3);
 			}
 		});
+		txtDiasSemanaSaida[3].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaChegada[3].requestFocus();
+				}
+			}
+		});
+		txtDiasSemanaChegada[3].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaSaida[4].requestFocus();
+				}
+			}
+		});
 		// funções quinta
 		txtDiasSemanaSaida[4].addFocusListener(new FocusListener() {
 
@@ -430,6 +512,26 @@ public class TelaInicial extends JFrame {
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
 				chegadaLost(4);
+			}
+		});
+		txtDiasSemanaSaida[4].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaChegada[4].requestFocus();
+				}
+			}
+		});
+		txtDiasSemanaChegada[4].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaSaida[5].requestFocus();
+				}
 			}
 		});
 		// funçoes sexta
@@ -455,6 +557,26 @@ public class TelaInicial extends JFrame {
 			public void focusLost(FocusEvent e) {
 				// TODO Auto-generated method stub
 				chegadaLost(5);
+			}
+		});
+		txtDiasSemanaSaida[5].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaChegada[5].requestFocus();
+				}
+			}
+		});
+		txtDiasSemanaChegada[5].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaSaida[6].requestFocus();
+				}
 			}
 		});
 		// funções sabado
@@ -483,7 +605,27 @@ public class TelaInicial extends JFrame {
 			}
 
 		});
-
+		txtDiasSemanaSaida[6].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txtDiasSemanaChegada[6].requestFocus();
+				}
+			}
+		});
+		txtDiasSemanaChegada[6].addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnNovaSemana.setBackground(new Color(250, 0, 0));
+					btnNovaSemana.requestFocus();
+				}
+			}
+		});
 		// botões limpa linhas
 		for (int i = 0; i < clean.length; i++) {
 			int j = i;
@@ -510,27 +652,20 @@ public class TelaInicial extends JFrame {
 
 		}
 		// funcao
-		btnNovaSemana.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent arg0) {
-
-				preencheListaPDF();
-				for (int i = 0; i < viagem.length -1; i++) {
-					resetaViagem(i);
-					diasSemanaRadioButton[i].clearSelection();
-					viagemGrupo[i].clearSelection();
-					txtDiasSemanaChegada[i].setBackground(new Color(128, 128, 128));
-					txtDiasSemanaSaida[i].setBackground(new Color(128, 128, 128));
-					mudaRDBTNParaPreto(i);
-					diasSemanaRadioButton[i].clearSelection();
-				}
-				setHorasTrabalharSemana(getHorasTrabalharSemana(), false);
-				setHorasTrabalhadasSemana(getHorasTrabalhadasSemana(), false);
-				setHorasBancoSemana(getHorasBancoSemana(), false);
-				txtHorasTrabalharSemana.setText(Double.toString(getHorasTrabalharSemana()));
-				txtHorasTrabalhadasSemana.setText(Double.toString(getHorasTrabalhadasSemana()));
-				txtBancoHorasSemana.setText(Double.toString(getHorasBancoSemana()));
-				//txtDiasSemanaSaida[0].requestFocus();	
+		btnNovaSemana.addMouseListener( new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				super.mousePressed(e);
+				novaSemana();
+			}
+		});
+		btnNovaSemana.addKeyListener( new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				super.keyPressed(e);
+				novaSemana();
 			}
 		});
 		btnNovoMes.addMouseListener(new MouseAdapter() {
@@ -790,7 +925,24 @@ public class TelaInicial extends JFrame {
 		rdbtnFeriadoMunicipal[indice].setForeground(new Color(250, 0, 0));
 		rdbtnViagem[indice].setForeground(new Color(250, 0, 0));
 	}
-
+	public void novaSemana() {
+		preencheListaPDF();
+		for (int i = 0; i < viagem.length -1; i++) {
+			resetaViagem(i);
+			diasSemanaRadioButton[i].clearSelection();
+			viagemGrupo[i].clearSelection();
+			txtDiasSemanaChegada[i].setBackground(new Color(128, 128, 128));
+			txtDiasSemanaSaida[i].setBackground(new Color(128, 128, 128));
+			mudaRDBTNParaPreto(i);
+			diasSemanaRadioButton[i].clearSelection();
+		}
+		setHorasTrabalharSemana(getHorasTrabalharSemana(), false);
+		setHorasTrabalhadasSemana(getHorasTrabalhadasSemana(), false);
+		setHorasBancoSemana(getHorasBancoSemana(), false);
+		txtHorasTrabalharSemana.setText(Double.toString(getHorasTrabalharSemana()));
+		txtHorasTrabalhadasSemana.setText(Double.toString(getHorasTrabalhadasSemana()));
+		txtBancoHorasSemana.setText(Double.toString(getHorasBancoSemana()));
+	}
 	public void preencheListaPDF() {
 
 		for (int i = 0; i < viagem.length - 1; i++) {
@@ -799,7 +951,7 @@ public class TelaInicial extends JFrame {
 			v.setDecrementaBanco(viagem[i].getDecrementaBanco());
 			v.setDecrementaHorasSemana(viagem[i].getDecrementaHorasSemana());
 			v.setFeriado(viagem[i].isFeriado());
-			v.setFeriado(viagem[i].isFeriadoMunicipal());
+			v.setFeriadoMunicipal(viagem[i].isFeriadoMunicipal());
 			v.setHoraBancoDia(viagem[i].getHoraBancoDia());
 			v.setHoraTrabalhadaDia(viagem[i].getHoraTrabalhadaDia());
 			v.setHoraTrabalharDia(viagem[i].getHoraTrabalharDia());
