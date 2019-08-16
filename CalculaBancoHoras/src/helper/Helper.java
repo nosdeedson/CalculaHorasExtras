@@ -22,13 +22,7 @@ public abstract class Helper {
 			aux += valor.charAt(i);
 		}
 		retorno = Double.parseDouble(aux);
-		//System.out.println(retorno);
 		return retorno;
-	}
-	
-	public static void preencheValoresVazios( JTextField chegada) {
-		chegada.setText("aqui");
-		//return aux;
 	}
 
 }

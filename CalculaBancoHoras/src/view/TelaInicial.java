@@ -325,7 +325,7 @@ public class TelaInicial extends JFrame {
 
 		txtDiasSemanaChegada[0].addFocusListener(new FocusListener() {
 			@Override
-			public void focusGained(FocusEvent e) {// resolver aqui
+			public void focusGained(FocusEvent e) {
 				chegadaGain(0);
 			}
 
@@ -693,7 +693,6 @@ public class TelaInicial extends JFrame {
 				txtHorasTrabalhadasSemana.setText("");
 				txtHorasTrabalharMes.setText("");
 				txtHorasTrabalharSemana.setText("");
-				//txtDiasSemanaSaida[0].requestFocus();
 				GerarRelatorioPDF.gerarRelatorioMesPDF(listaViagensPDF, motorista, mes);
 				listaViagensPDF = new ArrayList<Viagem>();
 				
@@ -734,7 +733,6 @@ public class TelaInicial extends JFrame {
 	public void chegadaGain(int indice) {
 	
 		if( indice == 0 && !txtDiasSemanaChegada[0].getText().equals("")) {
-			//System.out.println(" here sunday filled");
 			txtDiasSemanaSaida[0].setText("0");
 			viagem[7].setSaida(0);
 			txtDiasSemanaChegada[0].setText("");
@@ -768,7 +766,7 @@ public class TelaInicial extends JFrame {
 					}
 				} // fim while
 			}
-			else {// iniciaWhile menor parawhile e viagem longa mais de um dia
+			else {
 				if (txtDiasSemanaSaida[0].getText().equals("meia noite")) {
 					//System.out.println("here empty");
 					txtDiasSemanaSaida[0].setText("meia noite");
@@ -786,7 +784,6 @@ public class TelaInicial extends JFrame {
 					}
 				}
 				else {
-					//System.out.println("here not empty");
 					criaViagem(7);
 				}
 			}

@@ -5,15 +5,19 @@ import javax.swing.JRadioButton;
 import model.Viagem;
 
 public abstract class SomaHoras {
-
-	public static  double somaHoraDomingo( Viagem v) { // calcula domingo ou feriado	
+	
+	public static  double somaHoraDomingo( Viagem v) { 
+		// calcula domingo ou feriado	
+		// multiplica a hora por dois, desconta 2 horas de janta se o total das horas trabalhadas for maior que 12
+		// e chegada for depois das 20 horas
 		double soma = 0.0;
 		soma  = verificaTamanhoViagem( v, soma);
 		return soma * 2;
 	}
 	
 	public static  double somaHoraSabado( Viagem v) { 
-		// multiplica a hora por 1.5 desconta 2 horas de almoço se o total das horas for maior que 12 e a hora de saida for maior que 11
+		// multiplica a hora por 1.5 desconta, desconta 2 horas de almoço se o total das horas for maior que 12
+		//e a chegada depois das 20 horas
 		// calcula sabado e feriado municipal
 		double soma = 0.0;
 		soma = verificaTamanhoViagem(v, soma);
@@ -21,8 +25,8 @@ public abstract class SomaHoras {
 	}
 	
 	public static  double somaHoraDiaSemana( Viagem v) { 
-		// multiplica a hora or dois desconta 2 horas de almoço se o total das horas for maior que 12 e a hora de saida for maior que 11
 		// calcula dia de semana normal
+		// desconta janta se o total das horas for maior que 12 e chegada for depois das 20 horas
 		double soma = 0.0;
 		soma = verificaTamanhoViagem( v, soma);
 		return soma;
