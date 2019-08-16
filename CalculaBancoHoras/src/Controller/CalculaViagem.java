@@ -33,12 +33,9 @@ public class CalculaViagem {
 			if(txtSaida.getText().equals("meia noite") || viagem.isFeriadoMunicipal()== true || 
 					viagem.isFeriado() == true) {
 				viagem.setHoraTrabalharDia(0);
-				//System.out.println(" if aqui feriado municipal" +viagem.isFeriadoMunicipal() +
-						//"trabalhar " + viagem.getHoraTrabalharDia());
 			}
 			else {
 				viagem.setHoraTrabalharDia(8);
-				//System.out.println(" else aqui feriado municipalfff" );
 			}
 			viagem.setHoraBancoDia(viagem.getHoraTrabalhadaDia()- viagem.getHoraTrabalharDia());
 			viagem.setDecrementaBanco(viagem.getHoraBancoDia());
