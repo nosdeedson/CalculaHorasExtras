@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="CalculaBancoHoras/src"/>
+	<classpathentry kind="lib" path="CalculaBancoHoras/itext-pdfa-5.5.13.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="CalculaBancoHoras/itextpdf-5.5.13.jar"/>
+	<classpathentry kind="lib" path="CalculaBancoHoras/jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="CalculaBancoHoras/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="output" path="CalculaBancoHoras/bin"/>
+</classpath>
