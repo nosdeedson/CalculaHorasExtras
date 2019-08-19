@@ -50,10 +50,12 @@ public class TelaInicial extends JFrame {
 
 	private ButtonGroup diasSemanaRadioButton[] = new ButtonGroup[7];
 	private ButtonGroup viagemGrupo[] = new ButtonGroup[7];
+	private ButtonGroup inicioMesGrupo = new ButtonGroup();
 
 	private JRadioButton rdbtnFeriado[] = new JRadioButton[7];
 	private JRadioButton rdbtnFeriadoMunicipal[] = new JRadioButton[7];
 	private JRadioButton rdbtnViagem[] = new JRadioButton[7];
+	private JRadioButton rdbtnInicioMes[]= new JRadioButton[7];
 
 	private Viagem viagem[] = new Viagem[8];
 
@@ -126,11 +128,17 @@ public class TelaInicial extends JFrame {
 		JPanel panelbotoes = new JPanel();
 		panelbotoes.setBounds(10, 65, 1264, 196);
 		contentPane.add(panelbotoes);
-		panelbotoes.setLayout(new GridLayout(0, 8, 10, 10));
+		panelbotoes.setLayout(new GridLayout(0, 9, 10, 10));
 
 		// inicializa o vetores de atributos
 		for (int i = 0; i < viagem.length; i++) {
 			if (i < 7) {
+				rdbtnInicioMes[i] = new JRadioButton("Inicio Mês");
+				rdbtnInicioMes[i].setFont(new Font("Tahoma", Font.PLAIN, 13));
+				rdbtnInicioMes[i].setHorizontalAlignment(SwingConstants.LEFT);
+				panelbotoes.add(rdbtnInicioMes[i]);
+				
+				inicioMesGrupo.add(rdbtnInicioMes[i]);
 				lbldiasSemana[i] = new JLabel();
 				setaDiaSemana(i);
 				lbldiasSemana[i].setBounds(10, 65, 80, 15);
@@ -681,6 +689,7 @@ public class TelaInicial extends JFrame {
 					viagemGrupo[i].clearSelection();
 					diasSemanaRadioButton[i].clearSelection();
 				}
+				
 				setHorasTrabalharSemana(getHorasTrabalharSemana(), false);
 				setHorasTrabalharMes(getHorasTrabalharMes(), false);
 				setHorasTrabalhadasSemana(getHorasTrabalhadasSemana(), false);
@@ -695,7 +704,6 @@ public class TelaInicial extends JFrame {
 				txtHorasTrabalharSemana.setText("");
 				GerarRelatorioPDF.gerarRelatorioMesPDF(listaViagensPDF, motorista, mes);
 				listaViagensPDF = new ArrayList<Viagem>();
-				
 			}
 		});
 		btnNovoMotorista.addMouseListener(new MouseAdapter() {
@@ -830,6 +838,7 @@ public class TelaInicial extends JFrame {
 
 		} else {
 			verificaFeriadoViagem(indice);
+			
 			if (txtDiasSemanaChegada[indice].getText().equals("") || 
 					txtDiasSemanaChegada[indice].getText().equals("0") || txtDiasSemanaChegada[indice].getText().equals("00") ) {
 				viagem[indice].setChegada(24);
@@ -925,6 +934,7 @@ public class TelaInicial extends JFrame {
 	public void novaSemana() {
 		preencheListaPDF();
 		for (int i = 0; i < viagem.length -1; i++) {
+			
 			resetaViagem(i);
 			diasSemanaRadioButton[i].clearSelection();
 			viagemGrupo[i].clearSelection();
@@ -932,6 +942,7 @@ public class TelaInicial extends JFrame {
 			txtDiasSemanaSaida[i].setBackground(new Color(128, 128, 128));
 			mudaRDBTNParaPreto(i);
 			diasSemanaRadioButton[i].clearSelection();
+			inicioMesGrupo.clearSelection();
 		}
 		setHorasTrabalharSemana(getHorasTrabalharSemana(), false);
 		setHorasTrabalhadasSemana(getHorasTrabalhadasSemana(), false);
@@ -944,6 +955,7 @@ public class TelaInicial extends JFrame {
 
 		for (int i = 0; i < viagem.length - 1; i++) {
 			Viagem v = new Viagem();
+			
 			v.setChegada(viagem[i].getChegada());
 			v.setDecrementaBanco(viagem[i].getDecrementaBanco());
 			v.setDecrementaHorasSemana(viagem[i].getDecrementaHorasSemana());
@@ -955,6 +967,10 @@ public class TelaInicial extends JFrame {
 			v.setSaida(viagem[i].getSaida());
 			v.setViagemLonga(viagem[i].isViagemLonga());
 			v.setHoraDiaPosterior(viagem[i].getHoraDiaPosterior());
+			if( rdbtnInicioMes[i].isSelected() == true)
+				v.setInicioMes(true);
+			else
+				v.setInicioMes(viagem[i].isInicioMes());
 			listaViagensPDF.add(v);
 		}
 	}
@@ -965,7 +981,7 @@ public class TelaInicial extends JFrame {
 		viagem[indice].setFeriado(false);
 		viagem[indice].setFeriadoMunicipal(false);
 		viagem[indice].setViagemLonga(false);
-
+		viagem[indice].setInicioMes(false);
 		viagem[indice].setDecrementaBanco(0);
 		viagem[indice].setDecrementaHorasSemana(0);
 		viagem[indice].setHoraBancoDia(0);
@@ -1023,7 +1039,12 @@ public class TelaInicial extends JFrame {
 			viagem[indice].setViagemLonga(true);
 		} else {
 			viagem[indice].setViagemLonga(false);
+		}if(rdbtnInicioMes[indice].isSelected() == true) {
+			viagem[indice].setInicioMes(true);
+		}else {
+			viagem[indice].setInicioMes(false);
 		}
+		
 	}
 
 	// getters and setters

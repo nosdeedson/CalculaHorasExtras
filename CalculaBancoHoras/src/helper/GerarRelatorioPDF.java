@@ -26,9 +26,10 @@ public class GerarRelatorioPDF {
 	
 	public static void gerarRelatorioMesPDF( List<Viagem> listaViagemMes, String motorista, String mes) {
 		
-		Document doc = new Document();
+		Document doc = new Document();// achar o primeiro dia do mes
 		JOptionPane.showMessageDialog(null, " Os PDFs gerados tem que ser salvos. \n Senão serão perdidos. ");
-		String arquivoPDF = "relatorio_" +"motorista.pdf";
+		String arquivoPDF = "relatorio_motorista.pdf";
+		
 		try {
 			PdfWriter.getInstance(doc, new FileOutputStream(arquivoPDF));
 			doc.open();
@@ -69,7 +70,16 @@ public class GerarRelatorioPDF {
 			double totalTrabalhar = 0.0;
 			int totalFolgas = 0;
 			int cont = 0;
-			for( int i = 0; i < listaViagemMes.size(); i++) {
+			int inicioMes = 0;
+			// usar a variavel i para achar o primeiro dia no mes em um while
+			while( listaViagemMes.get(inicioMes).isInicioMes() == false) {
+				// quando inicio de mes for verdadeiro é o inicio do mes
+				// assim sendo começa-se a preencher o PDF a partir do primeiro dia trabalhado
+				cont++;
+				inicioMes++;
+				// testar este while
+			}
+			for( int i= inicioMes; i < listaViagemMes.size(); i++) {
 				
 				BaseColor backgroundColor= new BaseColor(220,220,220);
 				
@@ -132,11 +142,11 @@ public class GerarRelatorioPDF {
 			doc.add(p);
 			// total de horas/dias do banco
 			double diasTirar =0.0;
-			diasTirar = totalBanco /8;
+			diasTirar = totalBanco /8.0;
 			if(diasTirar > 8)
-				p = new Paragraph(" Total de dias banco: " + diasTirar);
+				p = new Paragraph(" Total de dias banco: " + diasTirar + " dias.");
 			else
-				p = new Paragraph(" Total de horas banco: " + totalBanco);
+				p = new Paragraph(" Total de horas banco: " + totalBanco + " horas.");
 			p.setAlignment(1);
 			doc.add(p);
 			// dias trabalhados no mes
@@ -186,7 +196,7 @@ public class GerarRelatorioPDF {
 		if( indice == 5)
 			dia = "Sexta";
 		if( indice == 6)
-			dia  = "Sabado";
+			dia  = "Sábado";
 		return dia;
 	}
 }
