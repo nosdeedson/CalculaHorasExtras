@@ -133,9 +133,10 @@ public class TelaInicial extends JFrame {
 		// inicializa o vetores de atributos
 		for (int i = 0; i < viagem.length; i++) {
 			if (i < 7) {
-				rdbtnInicioMes[i] = new JRadioButton("Inicio Mês");
+				rdbtnInicioMes[i] = new JRadioButton("Inicio/Fim Mês");
 				rdbtnInicioMes[i].setFont(new Font("Tahoma", Font.PLAIN, 13));
 				rdbtnInicioMes[i].setHorizontalAlignment(SwingConstants.LEFT);
+				rdbtnInicioMes[i].setToolTipText("Marcar o dia que inicia o Mês\n assim com o dia que termina");
 				panelbotoes.add(rdbtnInicioMes[i]);
 				
 				inicioMesGrupo.add(rdbtnInicioMes[i]);
@@ -227,19 +228,19 @@ public class TelaInicial extends JFrame {
 		JLabel lblHoraSada = new JLabel("Hora Sa\u00EDda");
 		lblHoraSada.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHoraSada.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblHoraSada.setBounds(646, 40, 84, 14);
+		lblHoraSada.setBounds(732, 40, 84, 14);
 		contentPane.add(lblHoraSada);
 
 		JLabel lblHoraChegada = new JLabel("Hora Chegada");
 		lblHoraChegada.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHoraChegada.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblHoraChegada.setBounds(804, 40, 131, 14);
+		lblHoraChegada.setBounds(867, 40, 131, 14);
 		contentPane.add(lblHoraChegada);
 
 		JLabel lblTotalHorasDia = new JLabel("Total Horas Dia");
 		lblTotalHorasDia.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTotalHorasDia.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblTotalHorasDia.setBounds(974, 40, 131, 14);
+		lblTotalHorasDia.setBounds(992, 40, 150, 14);
 		contentPane.add(lblTotalHorasDia);
 
 		JLabel lblTotalDeHoras = new JLabel("Horas trabalhadas Semana");
@@ -674,6 +675,7 @@ public class TelaInicial extends JFrame {
 				// TODO Auto-generated method stub
 				super.keyPressed(e);
 				novaSemana();
+				
 			}
 		});
 		btnNovoMes.addMouseListener(new MouseAdapter() {
@@ -702,6 +704,7 @@ public class TelaInicial extends JFrame {
 				txtHorasTrabalhadasSemana.setText("");
 				txtHorasTrabalharMes.setText("");
 				txtHorasTrabalharSemana.setText("");
+				inicioMesGrupo.clearSelection();
 				GerarRelatorioPDF.gerarRelatorioMesPDF(listaViagensPDF, motorista, mes);
 				listaViagensPDF = new ArrayList<Viagem>();
 			}
@@ -732,6 +735,7 @@ public class TelaInicial extends JFrame {
 				txtHorasTrabalharSemana.setText("");
 				GerarRelatorioPDF.gerarRelatorioMesPDF(listaViagensPDF, motorista, mes);
 				listaViagensPDF = new ArrayList<Viagem>();
+				inicioMesGrupo.clearSelection();
 				motorista = JOptionPane.showInputDialog(null, " Digite novo Motorista.");
 				mes = JOptionPane.showInputDialog(null, " Digite mês.");
 
@@ -841,7 +845,6 @@ public class TelaInicial extends JFrame {
 
 		} else {
 			verificaFeriadoViagem(indice);
-			
 			if (txtDiasSemanaChegada[indice].getText().equals("") || 
 					txtDiasSemanaChegada[indice].getText().equals("0") || txtDiasSemanaChegada[indice].getText().equals("00") ) {
 				viagem[indice].setChegada(24);
@@ -971,9 +974,9 @@ public class TelaInicial extends JFrame {
 			v.setViagemLonga(viagem[i].isViagemLonga());
 			v.setHoraDiaPosterior(viagem[i].getHoraDiaPosterior());
 			if( rdbtnInicioMes[i].isSelected() == true)
-				v.setInicioMes(true);
+				v.setInicioFimMes(true);
 			else
-				v.setInicioMes(viagem[i].isInicioMes());
+				v.setInicioFimMes(viagem[i].isInicioFimMes());
 			listaViagensPDF.add(v);
 		}
 	}
@@ -984,7 +987,7 @@ public class TelaInicial extends JFrame {
 		viagem[indice].setFeriado(false);
 		viagem[indice].setFeriadoMunicipal(false);
 		viagem[indice].setViagemLonga(false);
-		viagem[indice].setInicioMes(false);
+		viagem[indice].setInicioFimMes(false);
 		viagem[indice].setDecrementaBanco(0);
 		viagem[indice].setDecrementaHorasSemana(0);
 		viagem[indice].setHoraBancoDia(0);
@@ -1043,9 +1046,9 @@ public class TelaInicial extends JFrame {
 		} else {
 			viagem[indice].setViagemLonga(false);
 		}if(rdbtnInicioMes[indice].isSelected() == true) {
-			viagem[indice].setInicioMes(true);
+			viagem[indice].setInicioFimMes(true);
 		}else {
-			viagem[indice].setInicioMes(false);
+			viagem[indice].setInicioFimMes(false);
 		}
 		
 	}

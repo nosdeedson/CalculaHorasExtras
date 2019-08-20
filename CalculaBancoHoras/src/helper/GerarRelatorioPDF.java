@@ -72,7 +72,7 @@ public class GerarRelatorioPDF {
 			int cont = 0;
 			int inicioMes = 0;
 			// usar a variavel i para achar o primeiro dia no mes em um while
-			while( listaViagemMes.get(inicioMes).isInicioMes() == false) {
+			while( listaViagemMes.get(inicioMes).isInicioFimMes() == false) {
 				// quando inicio de mes for verdadeiro é o inicio do mes
 				// assim sendo começa-se a preencher o PDF a partir do primeiro dia trabalhado
 				cont++;
@@ -122,6 +122,9 @@ public class GerarRelatorioPDF {
 				if(cont == 7) {
 					cont = 0;
 				}
+				// finaliza o for quando acha a variável inicioFimMes com valor 
+				if(listaViagemMes.get(i).isInicioFimMes()== true && i > inicioMes )
+					break;
 			}
 			doc.add(table);
 			table = new PdfPTable(4);

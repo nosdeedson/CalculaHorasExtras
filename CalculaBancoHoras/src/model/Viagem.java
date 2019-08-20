@@ -6,7 +6,7 @@ public class Viagem {
 	decrementaBanco, decrementaHorasSemana; // atribuir valor na controller
 	
 	private boolean viagemLonga = false, feriado = false, feriadoMunicipal= false; // atribuir valor na view  
-	private boolean inicioMes;
+	private boolean inicioFimMes;
 	public Viagem(double saida, double chegada, double horaDiaPosterior, double horaBancoDia, double horaTrabalharDia,
 			double horaTrabalhadaDia, double decrementaBanco, double decrementaHorasSemana, boolean viagemLonga,
 			boolean feriado, boolean feriadoMunicipal) {
@@ -116,15 +116,13 @@ public class Viagem {
 		this.feriadoMunicipal = feriadoMunicipal;
 	}
 
-	public boolean isInicioMes() {
-		return inicioMes;
+	public boolean isInicioFimMes() {
+		return inicioFimMes;
 	}
 
-	public void setInicioMes(boolean inicioMes) {
-		this.inicioMes = inicioMes;
+	public void setInicioFimMes(boolean inicioFimMes) {
+		this.inicioFimMes = inicioFimMes;
 	}
-
-	
 
 	
 }// fim classe
