@@ -129,7 +129,7 @@ public class TelaInicial extends JFrame {
 		panelbotoes.setBounds(10, 65, 1264, 196);
 		contentPane.add(panelbotoes);
 		panelbotoes.setLayout(new GridLayout(0, 9, 10, 10));
-
+		
 		// inicializa o vetores de atributos
 		for (int i = 0; i < viagem.length; i++) {
 			if (i < 7) {
@@ -712,6 +712,7 @@ public class TelaInicial extends JFrame {
 				// TODO Auto-generated method stub
 				super.mousePressed(e);
 				preencheListaPDF();
+				
 				for (int i = 0; i < viagem.length -1; i++) {
 					resetaViagem(i);
 					viagemGrupo[i].clearSelection();
@@ -729,6 +730,8 @@ public class TelaInicial extends JFrame {
 				txtHorasTrabalhadasSemana.setText("");
 				txtHorasTrabalharMes.setText("");
 				txtHorasTrabalharSemana.setText("");
+				GerarRelatorioPDF.gerarRelatorioMesPDF(listaViagensPDF, motorista, mes);
+				listaViagensPDF = new ArrayList<Viagem>();
 				motorista = JOptionPane.showInputDialog(null, " Digite novo Motorista.");
 				mes = JOptionPane.showInputDialog(null, " Digite mês.");
 
