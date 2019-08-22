@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -19,7 +20,9 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.javafx.css.CalculatedValue;
 
+import Controller.VerificaMes;
 import model.Viagem;
 
 public class GerarRelatorioPDF {
@@ -44,21 +47,22 @@ public class GerarRelatorioPDF {
 			p = new Paragraph(" ");
 			doc.add(p);
 			
-			PdfPTable table = new PdfPTable(8);
-			float tams[] = {0.125f, 0.115f,0.105f,0.135f,0.135f,0.155f,0.105f,0.125f};
+			PdfPTable table = new PdfPTable(9);
+			table.setTotalWidth(7.0f);
+			float tams[] = {0.60f, 0.60f, 0.80f, 0.45f, 0.55f,0.60f,0.66f,0.50f,0.66f};
 			table.setWidths(tams);
-			//Font fonteTexto = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12,Font.NORMAL, preto);
-			Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12);
+			Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 10);
 			
-			PdfPCell cell[] = new PdfPCell[8];
+			PdfPCell cell[] = new PdfPCell[9];
 			cell[0] = new PdfPCell(new Phrase("Dia", font));
-			cell[1] = new PdfPCell(new Phrase("Feriado", font));
-			cell[2] = new PdfPCell( new Phrase("Saída", font));
-			cell[3]= new PdfPCell( new Phrase("Chegada", font));
-			cell[4] = new PdfPCell( new Phrase("Trabalhar", font));
-			cell[5] = new PdfPCell( new Phrase("Trabalhada", font));
-			cell[6] = new PdfPCell( new Phrase("Horas Banco", font));
-			cell[7] = new PdfPCell( new Phrase("Horas dia posterior", font) );
+			cell[1] = new PdfPCell(new Phrase("Data", font));
+			cell[2] = new PdfPCell(new Phrase("Feriado", font));
+			cell[3] = new PdfPCell( new Phrase("Saída", font));
+			cell[4]= new PdfPCell( new Phrase("Chegada", font));
+			cell[5] = new PdfPCell( new Phrase("Trabalhar", font));
+			cell[6] = new PdfPCell( new Phrase("Trabalhada", font));
+			cell[7] = new PdfPCell( new Phrase("Horas Banco", font));
+			cell[8] = new PdfPCell( new Phrase("Horas dia posterior", font) );
 			
 		
 			for( int i = 0; i< cell.length ; i++) {
@@ -71,6 +75,11 @@ public class GerarRelatorioPDF {
 			int totalFolgas = 0;
 			int cont = 0;
 			int inicioMes = 0;
+			String data="";
+			data = VerificaMes.mesStringParaMesNumero(mes);
+			Calendar c = Calendar.getInstance();
+			int d = c.get(Calendar.YEAR);
+			int dia = 1;
 			// usar a variavel i para achar o primeiro dia no mes em um while
 			while( listaViagemMes.get(inicioMes).isInicioFimMes() == false) {
 				// quando inicio de mes for verdadeiro é o inicio do mes
@@ -84,29 +93,32 @@ public class GerarRelatorioPDF {
 				BaseColor backgroundColor= new BaseColor(220,220,220);
 				
 				cell[0] = new PdfPCell( new Phrase(setDiaSemana(cont),font ));
+				
+				cell[1] = new PdfPCell( new Phrase(Integer.toString(dia)+"/"+data+"/"+ Integer.toString(d), font));
+				dia++;
 				if( listaViagemMes.get(i).isFeriadoMunicipal()== true && (cont != 0 || cont != 6) ) {
-					cell[1] = new PdfPCell( new Phrase("Municipal", font));
+					cell[2] = new PdfPCell( new Phrase("Municipal/Ponto Facultativo", font));
 				}
 				else if( listaViagemMes.get(i).isFeriado() == true && (cont != 0 || cont != 6) ) {
-					cell[1] = new PdfPCell( new Phrase("Nacional", font));
+					cell[2] = new PdfPCell( new Phrase("Nacional", font));
 				}
 				else
-					cell[1] = new PdfPCell( new Phrase("Normal", font));
-				cell[2] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getSaida()), font ) );
-				cell[3] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getChegada()), font ));
-				cell[4] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraTrabalharDia()), font ));
+					cell[2] = new PdfPCell( new Phrase("Não", font));
+				cell[3] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getSaida()), font ) );
+				cell[4] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getChegada()), font ));
+				cell[5] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraTrabalharDia()), font ));
 				if( listaViagemMes.get(i).getHoraTrabalhadaDia() > 0 )
-					cell[5] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraTrabalhadaDia()), font ));
+					cell[6] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraTrabalhadaDia()), font ));
 				else {
 					if( cont == 0 || cont == 6)
-						cell[5] = new PdfPCell(new Phrase("0", font));
+						cell[6] = new PdfPCell(new Phrase("0", font));
 					if( cont > 0 && cont < 6) {
-						cell[5] = new PdfPCell(new Phrase("folga", font));
+						cell[6] = new PdfPCell(new Phrase("folga", font));
 						totalFolgas ++;
 					}
 				}
-				cell[6] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraBancoDia()), font ));
-				cell[7] = new PdfPCell( new Phrase( Double.toString(listaViagemMes.get(i).getHoraDiaPosterior()), font ));
+				cell[7] = new PdfPCell( new Phrase(Double.toString(listaViagemMes.get(i).getHoraBancoDia()), font ));
+				cell[8] = new PdfPCell( new Phrase( Double.toString(listaViagemMes.get(i).getHoraDiaPosterior()), font ));
 
 				if( i % 2 == 0) {
 					for( int l = 0; l < cell.length; l++)
@@ -202,4 +214,5 @@ public class GerarRelatorioPDF {
 			dia  = "Sábado";
 		return dia;
 	}
-}
+
+}// fim classe

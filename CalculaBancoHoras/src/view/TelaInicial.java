@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import Controller.CalculaViagem;
 import Controller.SomaHoras;
+import Controller.VerificaMes;
 import helper.GerarRelatorioPDF;
 import helper.Helper;
 import model.Viagem;
@@ -107,7 +108,7 @@ public class TelaInicial extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		while(true) {
+		/*while(true) {
 			motorista = JOptionPane.showInputDialog(null, " Digite o nome do motorista. ");
 			mes = JOptionPane.showInputDialog(null, " Entre com o mês a ser digitado. ");
 			if(motorista.equals("")  )
@@ -117,7 +118,8 @@ public class TelaInicial extends JFrame {
 			if(!motorista.equals("") && !mes.equals("")) {
 				break;
 			}
-		}
+		}*/
+		inserirMotoristaMes();
 		
 		JLabel lblDigiteHoraEntrada = new JLabel("Selecione quando necess\u00E1rio");
 		lblDigiteHoraEntrada.setHorizontalAlignment(SwingConstants.CENTER);
@@ -707,6 +709,7 @@ public class TelaInicial extends JFrame {
 				inicioMesGrupo.clearSelection();
 				GerarRelatorioPDF.gerarRelatorioMesPDF(listaViagensPDF, motorista, mes);
 				listaViagensPDF = new ArrayList<Viagem>();
+				inseriMes();
 			}
 		});
 		btnNovoMotorista.addMouseListener(new MouseAdapter() {
@@ -736,9 +739,7 @@ public class TelaInicial extends JFrame {
 				GerarRelatorioPDF.gerarRelatorioMesPDF(listaViagensPDF, motorista, mes);
 				listaViagensPDF = new ArrayList<Viagem>();
 				inicioMesGrupo.clearSelection();
-				motorista = JOptionPane.showInputDialog(null, " Digite novo Motorista.");
-				mes = JOptionPane.showInputDialog(null, " Digite mês.");
-
+				inserirMotoristaMes();
 			}
 		});
 
@@ -888,7 +889,34 @@ public class TelaInicial extends JFrame {
 		setHorasBancoSemana(viagem[indice].getHoraBancoDia(), true);
 		setHorasBancoMes(viagem[indice].getHoraBancoDia(), true);
 	}
-
+	public void inserirMotoristaMes() {
+		while(true) {
+			motorista = JOptionPane.showInputDialog(null, " Digite o nome do motorista. ");
+			mes = JOptionPane.showInputDialog(null, " Entre com o mês a ser digitado. ");
+			if(motorista.equals("")  )
+				motorista = JOptionPane.showInputDialog(null, "Digite o nome do motorista. ");
+			else if( mes.equals("") ) {
+				mes = JOptionPane.showInputDialog(null, " Digite o mês. ");	
+			}
+			while(VerificaMes.validaMes(mes) == false) {
+				mes = JOptionPane.showInputDialog(null, " Mês inválido!" + mes + "\n Entre com o mes novalmente:  ");
+				if(VerificaMes.validaMes(mes))
+					break;
+			}
+			if(!motorista.equals("") && !mes.equals("")) {
+				break;
+			}
+		}
+	}
+	public void inseriMes() {
+		while(true) {
+			if( mes.equals("") )
+				mes = JOptionPane.showInputDialog(null, " Digite o mês. ");	
+			if(!motorista.equals("") && !mes.equals("")) {
+				break;
+			}
+		}
+	}
 	public void limpatxtViagemMaisDeUmDia(int indice, JLabel diaAtual, JLabel diaAnterior) {
 
 		if (indice != 0) {
